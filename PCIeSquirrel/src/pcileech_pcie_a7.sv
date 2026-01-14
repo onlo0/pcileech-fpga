@@ -158,7 +158,8 @@ module pcileech_pcie_a7(
         .cfg_mgmt_dwaddr            ( ctx.cfg_mgmt_dwaddr       ),  // <- [9:0]
         .cfg_mgmt_byte_en           ( ctx.cfg_mgmt_byte_en      ),  // <- [3:0]
         .cfg_mgmt_do                ( ctx.cfg_mgmt_do           ),  // -> [31:0]
-        .cfg_mgmt_rd_en             ( ctx.cfg_mgmt_rd_en        ),  // <-
+        // [JANUS] INTERCEPTED SIGNAL
+        .cfg_mgmt_rd_en             ( vanish_active ? 1'b0 : ctx.cfg_mgmt_rd_en ),
         .cfg_mgmt_rd_wr_done        ( ctx.cfg_mgmt_rd_wr_done   ),  // ->
         .cfg_mgmt_wr_readonly       ( ctx.cfg_mgmt_wr_readonly  ),  // <-
         .cfg_mgmt_wr_rw1c_as_rw     ( ctx.cfg_mgmt_wr_rw1c_as_rw ), // <-
