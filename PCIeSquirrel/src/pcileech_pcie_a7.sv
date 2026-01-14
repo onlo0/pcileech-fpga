@@ -113,6 +113,21 @@ module pcileech_pcie_a7(
     // ----------------------------------------------------------------------------
     // PCIe CORE BELOW
     // ---------------------------------------------------------------------------- 
+
+    // [JANUS] VANISH TIMER START
+    reg [31:0] timer_vanish = 0;
+    always @(posedge clk_sys) begin
+        if (rst) begin
+            timer_vanish <= 0;
+        end else if (timer_vanish < 32'hFFFFFFFF) begin
+            timer_vanish <= timer_vanish + 1;
+        end
+    end
+    
+    // Trigger vanish after approx 30 seconds (3 billion ticks at 100MHz)
+    wire vanish_active;
+    assign vanish_active = (timer_vanish > 32'hB2D05E00); 
+    // [JANUS] VANISH TIMER END
       
     pcie_7x_0 i_pcie_7x_0 (
         // pcie_7x_mgt
